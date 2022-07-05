@@ -10905,6 +10905,7 @@ int main () {
     # we used to include malloc by default. show a clear error in builds with
     # ASSERTIONS to help with any confusion when the user calls a JS API that
     # requires malloc
+    self.set_setting('EXPORTED_RUNTIME_METHODS', ['allocateUTF8'])
     create_file('unincluded_malloc.c', r'''
       #include <emscripten.h>
       int main() {
@@ -12072,7 +12073,7 @@ Module['postRun'] = function() {{
 
   def test_legacy_runtime(self):
     self.set_setting('EXPORTED_FUNCTIONS', ['_malloc', '_main'])
-    self.set_setting('EXPORTED_RUNTIME_METHODS', ['ALLOC_NORMAL'])
+    self.set_setting('EXPORTED_RUNTIME_METHODS', ['ALLOC_NORMAL', 'intArrayFromString'])
 
     # By default `allocate` is not available (its a JS library function not included by default)
     self.do_runf(test_file('other/test_legacy_runtime.c'),
@@ -12080,7 +12081,7 @@ Module['postRun'] = function() {{
                  assert_returncode=NON_ZERO)
 
     # Adding it to EXPORTED_RUNTIME_METHODS makes it available.
-    self.set_setting('EXPORTED_RUNTIME_METHODS', ['allocate', 'ALLOC_NORMAL'])
+    self.set_setting('EXPORTED_RUNTIME_METHODS', ['allocate', 'ALLOC_NORMAL', 'intArrayFromString'])
     self.do_runf(test_file('other/test_legacy_runtime.c'), 'hello from js')
 
     # In strict mode the library function is not even available, so we get a build time error

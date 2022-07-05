@@ -34,6 +34,21 @@ See docs/process.md for more on how version tagging works.
    - addFunction
    - removeFunction
    - allocate
+   - AsciiToString
+   - stringToAscii
+   - UTF16ToString
+   - stringToUTF16
+   - lengthBytesUTF16
+   - UTF32ToString
+   - stringToUTF32
+   - lengthBytesUTF32
+   - allocateUTF8
+   - allocateUTF8OnStack
+   - writeStringToMemory
+   - writeArrayToMemory
+   - writeAsciiToMemory
+   - intArrayFromString
+   - intArrayToString
   This means they won't get included in the output unless explictly required.
   Exporting them via `EXPORTED_RUNTIME_METHODS` will continue to work.  For
   internal usage (without exporting them) they can be added to

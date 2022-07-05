@@ -2132,7 +2132,9 @@ def phase_linker_setup(options, state, newargs, user_settings):
         '$jsStackTrace',
         '$stackTrace',
         # Called by `callMain` to handle exceptions
-        '$handleException'
+        '$handleException',
+        # Needed by ccall (remove this once ccall itself is a library function)
+        '$writeArrayToMemory',
       ]
 
     if not settings.STANDALONE_WASM and (settings.EXIT_RUNTIME or settings.ASSERTIONS):
